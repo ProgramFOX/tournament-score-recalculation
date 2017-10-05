@@ -1,4 +1,5 @@
 import time
+import re
 import requests
 import bs4
 from game import Game
@@ -42,9 +43,9 @@ for player in player_names:
                     num_res = 0
                 else:
                     num_res = 0.5
-                white = g.find("div", { "class": "player white" }).find("a", { "class": "user_link" }).find(text=True).lower()
+                white = re.split(r"\s+", g.find("div", { "class": "player white" }).find("a", { "class": "user_link" }).text)[-1].lower()
                 white_berserk = len(g.find("div", { "class": "player white" }).find_all("span", { "data-icon": "`" })) > 0
-                black = g.find("div", { "class": "player black" }).find("a", { "class": "user_link" }).find(text=True).lower()
+                black = re.split(r"\s+", g.find("div", { "class": "player black" }).find("a", { "class": "user_link" }).text)[-1].lower()
                 black_berserk = len(g.find("div", { "class": "player black" }).find_all("span", { "data-icon": "`" })) > 0
                 if player.lower() == white:
                     opponent = black
