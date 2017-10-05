@@ -59,16 +59,21 @@ for player in player_names:
                     berserk_int = 0
                 pgn_elem = g.find("div", { "class": "pgn" })
                 if pgn_elem is not None and pgn_elem.text.strip() != "":
-                    moves_num = int(pgn_elem.text.split(" ")[-7])
-                    if moves_num < 11 and (num_res == 0.5 or berserk_int == 1):
-                        info = requests.get("https://lichess.org/api/game/" +
-                            g.find("a", { "class": "game_link_overlay" })["href"].replace("/white", "").replace("/black", "").replace("/", "")).json()
-                        quick_draw = info["turns"] < 20
-                        too_short_for_berserk = info["turns"] < 14
-                        if num_res == 0.5 and quick_draw:
-                            num_res = 0
-                        if too_short_for_berserk:
-                            berserk_int = 0
+                    try:
+                        moves_num = int(pgn_elem.text.split(" ")[-7])
+                    except:
+                        moves_num = 0
+                else:
+                    moves_num = 0
+                if moves_num < 11 and (num_res == 0.5 or berserk_int == 1):
+                    info = requests.get("https://lichess.org/api/game/" +
+                        g.find("a", { "class": "game_link_overlay" })["href"].replace("/white", "").replace("/black", "").replace("/", "")).json()
+                    quick_draw = info["turns"] < 20
+                    too_short_for_berserk = info["turns"] < 14
+                    if num_res == 0.5 and quick_draw:
+                        num_res = 0
+                    if too_short_for_berserk:
+                        berserk_int = 0
                 users_to_check.append(opponent)
                 games.append(Game(num_res, opponent, berserk_int))
             else:
