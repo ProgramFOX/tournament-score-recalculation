@@ -12,7 +12,7 @@ class TournamentPoints:
             self.points.append(4 + berserk)
 
     def add_draw(self):
-        if self.won_in_a_row <= 2:
+        if self.won_in_a_row < 2:
             self.points.append(1)
         else:
             self.points.append(2)
