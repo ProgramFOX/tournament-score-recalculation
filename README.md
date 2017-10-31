@@ -11,7 +11,15 @@ This tool is built for the purpose of the FV Variants World Cup, where these poi
 
 # How to run it?
 
-You need to have Python **3** installed. After the tournament finished, _and_ the top 15 finished their running games, run the tool like this:
+You need to have Python **3** installed.
+
+Use the package manager `pip` to easily install the dependencies:
+
+```
+pip install requests beautifulsoup4
+```
+
+After the tournament finished, _and_ the top 15 finished their running games, run the tool like this:
 
 ```
 python3 recalc.py
