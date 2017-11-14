@@ -92,7 +92,7 @@ for player in player_names:
     for u in fetched_checked_users:
         if "engine" in u and u["engine"] is True:
             cheaters.append(u["username"].lower())
-    filtered_games = [x for x in games if x.result != 0 or (x.result == 0 and x.opponent not in cheaters)]
+    filtered_games = [x for x in games if x.result == 1 or x.opponent not in cheaters]
     filtered_games.reverse()
     points = TournamentPoints(player.lower())
     for g in filtered_games:
